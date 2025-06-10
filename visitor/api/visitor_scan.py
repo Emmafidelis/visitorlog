@@ -184,6 +184,84 @@ def get_visitor_status():
 
 
 @frappe.whitelist()
+def register_visitor():
+    """
+    API endpoint for registering a new visitor from Flutter app
+
+    Parameters:
+    - first_name: Visitor's first name
+    - last_name: Visitor's last name
+    - email_address: Visitor's email
+    - phone_number: Visitor's phone number
+    - company_organization: Visitor's company/organization
+    - purpose: Purpose of visit
+    - host_employee: Host employee ID
+    - expected_duration: Expected duration of visit
+    - visitor_image: Base64 encoded image (optional)
+
+    Returns visitor registration details
+    """
+    try:
+        data = frappe.form_dict
+
+        # Create new visitor record
+        visitor = frappe.get_doc(
+            {
+                "doctype": "Visitor",
+                "first_name": data.get("first_name"),
+                "last_name": data.get("last_name"),
+                "email_address": data.get("email_address"),
+                "phone_number": data.get("phone_number"),
+                "company_organization": data.get("company_organization"),
+                "purpose": data.get("purpose"),
+                "host_employee": data.get("host_employee"),
+                "expected_duration": data.get("expected_duration"),
+                "visit_date": frappe.utils.today(),
+                "status": "Registered",
+            }
+        )
+
+        # Handle visitor image if provided
+        if data.get("visitor_image"):
+            # Save the image file
+            file_doc = frappe.get_doc(
+                {
+                    "doctype": "File",
+                    "file_name": f"visitor_{visitor.name}_photo.jpg",
+                    "content": data.get("visitor_image"),
+                    "decode": True,
+                    "is_private": 0,
+                }
+            )
+            file_doc.insert()
+            visitor.visitor_image = file_doc.file_url
+
+        visitor.insert(ignore_permissions=True)
+        frappe.db.commit()
+
+        frappe.response["message"] = {
+            "status": "success",
+            "visitor_id": visitor.name,
+            "full_name": visitor.full_name,
+            "message": "Visitor registered successfully",
+            "badge_info": {
+                "visitor_name": visitor.full_name,
+                "company": visitor.company_organization,
+                "host": visitor.host_employee,
+                "date": visitor.visit_date,
+                "purpose": visitor.purpose,
+            },
+        }
+
+    except Exception as e:
+        frappe.log_error(f"Visitor registration error: {str(e)}")
+        frappe.response["message"] = {
+            "status": "error",
+            "message": f"Registration failed: {str(e)}",
+        }
+
+
+@frappe.whitelist()
 def get_visitor_logs():
     """
     API endpoint to get visitor logs with optional filtering
