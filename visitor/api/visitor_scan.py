@@ -262,6 +262,72 @@ def register_visitor():
 
 
 @frappe.whitelist()
+def get_employees():
+    """
+    API endpoint to get list of employees for host selection
+
+    Returns list of employees with basic information
+    """
+    try:
+        if frappe.db.exists("DocType", "Employee"):
+            # Get employees from ERPNext Employee doctype
+            employees = frappe.db.get_list(
+                "Employee",
+                filters={"status": "Active"},
+                fields=[
+                    "name",
+                    "employee_name",
+                    "department",
+                    "designation",
+                    "company_email",
+                ],
+                limit=100,
+                order_by="employee_name",
+            )
+
+            frappe.response["message"] = {
+                "status": "success",
+                "data": employees,
+                "count": len(employees),
+            }
+        else:
+            # Fallback: get users with Employee role
+            users = frappe.db.get_list(
+                "User",
+                filters={"enabled": 1, "user_type": "System User"},
+                fields=["name", "full_name", "email"],
+                limit=100,
+                order_by="full_name",
+            )
+
+            # Format as employee-like structure
+            employee_data = []
+            for user in users:
+                employee_data.append(
+                    {
+                        "name": user.name,
+                        "employee_name": user.full_name or user.name,
+                        "department": "General",
+                        "designation": "Employee",
+                        "company_email": user.email,
+                    }
+                )
+
+            frappe.response["message"] = {
+                "status": "success",
+                "data": employee_data,
+                "count": len(employee_data),
+            }
+
+    except Exception as e:
+        frappe.log_error(f"Error fetching employees: {str(e)}", "Employee Fetch Error")
+        frappe.response["message"] = {
+            "status": "error",
+            "message": f"Failed to fetch employees: {str(e)}",
+        }
+
+
+@frappe.whitelist()
 def get_visitor_logs():
     """
     API endpoint to get visitor logs with optional filtering
