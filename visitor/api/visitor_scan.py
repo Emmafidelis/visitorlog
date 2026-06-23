@@ -261,70 +261,7 @@ def register_visitor():
         }
 
 
-@frappe.whitelist()
-def register_visitor():
-    """
-    API endpoint to register a new visitor
 
-    Parameters:
-    - first_name: Visitor's first name
-    - last_name: Visitor's last name
-    - email_address: Visitor's email address
-    - phone_number: Visitor's phone number
-    - company_organization: Visitor's company/organization (optional)
-    - purpose: Purpose of visit
-    - host_employee: Host employee ID
-    - expected_duration: Expected duration of visit (optional)
-    - visit_date: Visit date (optional, defaults to today)
-    - status: Visitor status (optional, defaults to 'Registered')
-
-    Returns visitor registration details
-    """
-    try:
-        data = frappe.form_dict
-
-        # Create new visitor record
-        visitor = frappe.get_doc(
-            {
-                "doctype": "Visitor",
-                "first_name": data.get("first_name"),
-                "last_name": data.get("last_name"),
-                "email_address": data.get("email_address"),
-                "phone_number": data.get("phone_number"),
-                "company_organization": data.get("company_organization"),
-                "purpose": data.get("purpose"),
-                "host_employee": data.get("host_employee"),
-                "expected_duration": data.get("expected_duration"),
-                "visit_date": data.get("visit_date", frappe.utils.today()),
-                "status": data.get("status", "Registered"),
-            }
-        )
-
-        visitor.insert(ignore_permissions=True)
-        frappe.db.commit()
-
-        frappe.response["message"] = {
-            "status": "success",
-            "visitor_id": visitor.name,
-            "full_name": f"{visitor.first_name} {visitor.last_name}",
-            "message": "Visitor registered successfully",
-            "badge_info": {
-                "visitor_name": f"{visitor.first_name} {visitor.last_name}",
-                "company": visitor.company_organization,
-                "host": visitor.host_employee,
-                "date": visitor.visit_date,
-                "purpose": visitor.purpose,
-            },
-        }
-
-    except Exception as e:
-        frappe.log_error(
-            f"Error registering visitor: {str(e)}", "Visitor Registration Error"
-        )
-        frappe.response["message"] = {
-            "status": "error",
-            "message": f"Registration failed: {str(e)}",
-        }
 
 
 @frappe.whitelist()
