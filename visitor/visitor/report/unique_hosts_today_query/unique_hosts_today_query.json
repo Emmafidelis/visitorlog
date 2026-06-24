@@ -1,0 +1,32 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2026-06-24 13:14:03.932052",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": null,
+ "modified": "2026-06-24 13:15:22.486177",
+ "modified_by": "Administrator",
+ "module": "Visitor",
+ "name": "Unique Hosts Today Query",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "SELECT COUNT(DISTINCT employee) AS \"Total Hosts:Int:120\"\r\nFROM `tabVisitors Registration Log`\r\nWHERE log_type = 'IN' AND DATE(time_in) = CURDATE() AND employee IS NOT NULL;",
+ "ref_doctype": "Visitors Registration Log",
+ "report_name": "Unique Hosts Today Query",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Employee"
+  }
+ ],
+ "timeout": 0
+}
