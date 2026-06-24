@@ -1,0 +1,98 @@
+{
+ "charts": [
+  {
+   "chart_name": "Monthly Visitor Traffic",
+   "label": "Monthly Visitor Traffic"
+  }
+ ],
+ "content": "[{\"id\":\"R4WkThugPr\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Active Visitors On-Premise\",\"col\":3}},{\"id\":\"QAtgMjlMnd\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Visits Today\",\"col\":3}},{\"id\":\"JdDoeTpXN0\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Unique Visitors This Month\",\"col\":3}},{\"id\":\"ZRWf3zzH5A\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Active Staff Hosts Today\",\"col\":3}},{\"id\":\"0TwN77a-Ps\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Monthly Visitor Traffic\",\"col\":12}},{\"id\":\"DuQXHVgqv1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"mB9AsidrtD\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Register Visitor\",\"col\":3}},{\"id\":\"bc7RhtEQhw\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Visitors Registration Card\",\"col\":3}},{\"id\":\"y-RDEd27kq\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"Xa7-XBLsJS\",\"type\":\"card\",\"data\":{\"card_name\":\"Masters\",\"col\":4}}]",
+ "creation": "2026-06-24 13:14:04.047431",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "customer",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Visitors",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Masters",
+   "link_count": 2,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Visitor Registration",
+   "link_count": 0,
+   "link_to": "Visitor",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Visitors Registration Card",
+   "link_count": 0,
+   "link_to": "Visitors Registration Card",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-06-24 13:15:22.653847",
+ "modified_by": "Administrator",
+ "module": "Visitor",
+ "name": "Visitors",
+ "number_cards": [
+  {
+   "label": "Active Staff Hosts Today",
+   "number_card_name": "Active Staff Hosts Today"
+  },
+  {
+   "label": "Total Visits Today",
+   "number_card_name": "Total Visits Today"
+  },
+  {
+   "label": "Unique Visitors This Month",
+   "number_card_name": "Unique Visitors This Month"
+  },
+  {
+   "label": "Active Visitors On-Premise",
+   "number_card_name": "Active Visitors On-Premise"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 42.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Register Visitor",
+   "link_to": "Visitor",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Visitors Registration Card",
+   "link_to": "Visitors Registration Card",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Visitors"
+}
