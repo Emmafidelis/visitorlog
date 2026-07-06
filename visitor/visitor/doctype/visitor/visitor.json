@@ -112,9 +112,8 @@
   },
   {
    "fieldname": "purpose",
-   "fieldtype": "Select",
+   "fieldtype": "Data",
    "label": "Purpose of Visit",
-   "options": "Business Meeting\nInterview\nDelivery\nMaintenance\nConsultation\nTraining\nOther",
    "reqd": 1
   },
   {
