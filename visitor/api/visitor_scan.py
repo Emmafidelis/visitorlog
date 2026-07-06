@@ -69,10 +69,19 @@ def visitors_scan():
                     if doc.log_type == "IN":
                         frappe.response["message"] = {"status": "visitor_is_in"}
                     else:
-                        doc.log_type = "IN"
-                        doc.qr_code = qr_code
-                        doc.time_in = frappe.utils.now()
-                        doc.save(ignore_permissions=True)
+                        new_log = frappe.get_doc({
+                            "doctype": "Visitors Registration Log",
+                            "full_name": doc.full_name,
+                            "contact_number": doc.contact_number,
+                            "address": doc.address,
+                            "purpose": doc.purpose,
+                            "employee": doc.employee,
+                            "visitor_image": doc.visitor_image,
+                            "log_type": "IN",
+                            "qr_code": qr_code,
+                            "time_in": frappe.utils.now()
+                        })
+                        new_log.insert(ignore_permissions=True)
                         frappe.response["message"] = {"status": "card_signed_in"}
                 else:
                     frappe.response["message"] = {"status": "log_name_required"}
@@ -102,6 +111,32 @@ def create_visitor_log():
     """
     try:
         data = frappe.form_dict
+
+        # Check if visitor profile exists, if not create one
+        contact_number = data.get("contact_number")
+        full_name = data.get("full_name") or "Unknown Visitor"
+        
+        visitor_exists = False
+        if contact_number:
+            visitor_exists = frappe.db.exists("Visitor", {"phone_number": contact_number})
+        
+        if not visitor_exists:
+            name_parts = full_name.split(" ", 1)
+            first_name = name_parts[0]
+            last_name = name_parts[1] if len(name_parts) > 1 else ""
+            
+            visitor = frappe.get_doc({
+                "doctype": "Visitor",
+                "first_name": first_name,
+                "last_name": last_name,
+                "phone_number": contact_number,
+                "email_address": f"{contact_number or 'unknown'}@visitor.local", # Required field
+                "purpose": data.get("purpose"),
+                "host_employee": data.get("employee"),
+                "visit_date": frappe.utils.today(),
+                "status": "Registered"
+            })
+            visitor.insert(ignore_permissions=True)
 
         # Create new visitor log
         log = frappe.get_doc(
