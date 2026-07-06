@@ -441,7 +441,7 @@ def sync_visitor_profile(doc, method=None):
     if not frappe.db.exists("Visitor", {"phone_number": contact_number}):
         name_parts = full_name.split(" ", 1)
         first_name = name_parts[0]
-        last_name = name_parts[1] if len(name_parts) > 1 else ""
+        last_name = name_parts[1] if len(name_parts) > 1 else "-"
         
         visitor = frappe.get_doc({
             "doctype": "Visitor",
@@ -458,13 +458,18 @@ def sync_visitor_profile(doc, method=None):
         if doc.visitor_image:
             visitor.visitor_image = doc.visitor_image
             
+        visitor.flags.ignore_mandatory = True
+        visitor.flags.ignore_validate = True
+        
         try:
             visitor.insert(ignore_permissions=True)
-        except Exception:
-            frappe.clear_messages()
-            # If validation fails (e.g., invalid phone format), try creating without it
-            visitor.phone_number = None
-            try:
-                visitor.insert(ignore_permissions=True)
-            except Exception as e:
-                frappe.log_error(f"Failed to auto-create visitor profile: {str(e)}", "Visitor Sync Error")
+        except Exception as e:
+            if "phone" in str(e).lower():
+                frappe.clear_messages()
+                visitor.phone_number = None
+                try:
+                    visitor.insert(ignore_permissions=True)
+                except Exception as inner_e:
+                    frappe.log_error(f"Failed to auto-create visitor profile after fallback: {str(inner_e)[:100]}", "Visitor Sync Error")
+            else:
+                frappe.log_error(f"Failed to auto-create visitor profile: {str(e)[:100]}", "Visitor Sync Error")
