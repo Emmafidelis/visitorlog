@@ -94,7 +94,6 @@
    "fieldname": "phone_number",
    "fieldtype": "Data",
    "label": "Phone Number",
-   "options": "Phone",
    "reqd": 1
   },
   {

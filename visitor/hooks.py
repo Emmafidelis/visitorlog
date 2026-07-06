@@ -137,13 +137,11 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"Visitors Registration Log": {
+		"before_insert": "visitor.api.visitor_scan.sync_visitor_profile"
+	}
+}
 
 # Scheduled Tasks
 # ---------------

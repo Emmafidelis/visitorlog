@@ -423,3 +423,48 @@ def get_visitor_logs():
     except Exception as e:
         frappe.log_error(f"Error getting visitor logs: {str(e)}", "Visitor Logs Error")
         frappe.response["message"] = {"status": "error", "message": str(e)}
+
+def sync_visitor_profile(doc, method=None):
+    """
+    Document Hook: Runs before inserting a new Visitors Registration Log.
+    Ensures that a master Visitor record exists for the given contact_number.
+    """
+    if doc.log_type != "IN":
+        return
+        
+    contact_number = doc.contact_number
+    full_name = doc.full_name or "Unknown Visitor"
+    
+    if not contact_number:
+        return
+        
+    if not frappe.db.exists("Visitor", {"phone_number": contact_number}):
+        name_parts = full_name.split(" ", 1)
+        first_name = name_parts[0]
+        last_name = name_parts[1] if len(name_parts) > 1 else ""
+        
+        visitor = frappe.get_doc({
+            "doctype": "Visitor",
+            "first_name": first_name,
+            "last_name": last_name,
+            "phone_number": contact_number,
+            "email_address": f"{contact_number}@visitor.local",
+            "purpose": doc.purpose,
+            "host_employee": doc.employee,
+            "visit_date": frappe.utils.today(),
+            "status": "Registered"
+        })
+        # If there's an image attached to the log, attach it to the visitor
+        if doc.visitor_image:
+            visitor.visitor_image = doc.visitor_image
+            
+        try:
+            visitor.insert(ignore_permissions=True)
+        except Exception:
+            frappe.clear_messages()
+            # If validation fails (e.g., invalid phone format), try creating without it
+            visitor.phone_number = None
+            try:
+                visitor.insert(ignore_permissions=True)
+            except Exception as e:
+                frappe.log_error(f"Failed to auto-create visitor profile: {str(e)}", "Visitor Sync Error")
