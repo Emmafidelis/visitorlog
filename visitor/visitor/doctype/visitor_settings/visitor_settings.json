@@ -1,0 +1,57 @@
+{
+ "actions": [],
+ "creation": "2026-07-07 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "ocr_backend",
+  "ocr_confidence_threshold",
+  "block_orphan_exit_scan"
+ ],
+ "fields": [
+  {
+   "fieldname": "ocr_backend",
+   "fieldtype": "Select",
+   "label": "OCR Backend",
+   "options": "Tesseract (Local)\nPaddleOCR (Local)",
+   "default": "Tesseract (Local)",
+   "reqd": 1,
+   "description": "PaddleOCR gives better accuracy on ID cards but must be installed separately (pip install \"visitor[paddleocr]\") before selecting it here."
+  },
+  {
+   "fieldname": "ocr_confidence_threshold",
+   "fieldtype": "Percent",
+   "label": "OCR Confidence Threshold",
+   "default": "60",
+   "description": "Visitors with OCR confidence below this value are surfaced on the OCR Exception Report."
+  },
+  {
+   "fieldname": "block_orphan_exit_scan",
+   "fieldtype": "Check",
+   "label": "Block Exit Scan Without Matching Entry",
+   "default": "1",
+   "description": "If unchecked, a badge scanned for exit with no open entry record is logged as an exception instead of being blocked."
+  }
+ ],
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-07-07 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Visitor",
+ "name": "Visitor Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

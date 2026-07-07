@@ -8,6 +8,7 @@
     "engine": "InnoDB",
     "field_order": [
         "naming_series",
+        "visitor",
         "full_name",
         "contact_number",
         "address",
@@ -17,7 +18,11 @@
         "log_type",
         "qr_code",
         "time_in",
-        "time_out"
+        "time_out",
+        "scanned_by",
+        "gate_location",
+        "is_exception",
+        "exception_reason"
     ],
     "fields": [
         {
@@ -26,6 +31,13 @@
             "label": "Naming Series",
             "options": "VRL-.YYYY.-",
             "reqd": 1
+        },
+        {
+            "fieldname": "visitor",
+            "fieldtype": "Link",
+            "label": "Visitor",
+            "options": "Visitor",
+            "in_standard_filter": 1
         },
         {
             "fieldname": "full_name",
@@ -69,8 +81,9 @@
         },
         {
             "fieldname": "qr_code",
-            "fieldtype": "Data",
-            "label": "QR Code"
+            "fieldtype": "Link",
+            "label": "QR Code",
+            "options": "Visitors Registration Card"
         },
         {
             "fieldname": "time_in",
@@ -81,6 +94,32 @@
             "fieldname": "time_out",
             "fieldtype": "Datetime",
             "label": "Time Out"
+        },
+        {
+            "fieldname": "scanned_by",
+            "fieldtype": "Link",
+            "label": "Scanned By",
+            "options": "User",
+            "default": "__user",
+            "read_only": 1
+        },
+        {
+            "fieldname": "gate_location",
+            "fieldtype": "Data",
+            "label": "Gate/Location"
+        },
+        {
+            "fieldname": "is_exception",
+            "fieldtype": "Check",
+            "label": "Is Exception",
+            "read_only": 1
+        },
+        {
+            "fieldname": "exception_reason",
+            "fieldtype": "Small Text",
+            "label": "Exception Reason",
+            "read_only": 1,
+            "depends_on": "is_exception"
         }
     ],
     "index_web_pages_for_search": 1,
@@ -106,13 +145,23 @@
         },
         {
             "create": 1,
-            "delete": 1,
             "email": 1,
             "export": 1,
             "print": 1,
             "read": 1,
             "report": 1,
             "role": "Employee",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Visitor Verifier",
             "share": 1,
             "write": 1
         }

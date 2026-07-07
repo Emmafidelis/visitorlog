@@ -8,7 +8,10 @@
     "engine": "InnoDB",
     "field_order": [
         "naming_series",
-        "label"
+        "label",
+        "status",
+        "column_break_status",
+        "current_visitor"
     ],
     "fields": [
         {
@@ -23,6 +26,29 @@
             "fieldtype": "Data",
             "label": "Label",
             "reqd": 1
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "Available\nAssigned\nLost\nDamaged\nDisabled",
+            "default": "Available",
+            "reqd": 1,
+            "permlevel": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "column_break_status",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "current_visitor",
+            "fieldtype": "Link",
+            "label": "Current Visitor",
+            "options": "Visitor",
+            "permlevel": 1,
+            "read_only": 1
         }
     ],
     "index_web_pages_for_search": 1,
@@ -47,8 +73,13 @@
             "write": 1
         },
         {
+            "permlevel": 1,
+            "read": 1,
+            "role": "System Manager",
+            "write": 1
+        },
+        {
             "create": 1,
-            "delete": 1,
             "email": 1,
             "export": 1,
             "print": 1,
@@ -57,6 +88,27 @@
             "role": "Employee",
             "share": 1,
             "write": 1
+        },
+        {
+            "permlevel": 1,
+            "read": 1,
+            "role": "Employee"
+        },
+        {
+            "create": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Visitor Verifier",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "permlevel": 1,
+            "read": 1,
+            "role": "Visitor Verifier"
         }
     ],
     "sort_field": "modified",

@@ -31,7 +31,19 @@
   "check_in_time",
   "column_break_status",
   "check_out_time",
-  "badge_number"
+  "badge_number",
+  "section_break_id_verification",
+  "id_type",
+  "id_number",
+  "column_break_id_verification",
+  "scanned_id_image",
+  "ocr_confidence",
+  "ocr_verified",
+  "verified_by",
+  "verified_on",
+  "section_break_ocr_detail",
+  "ocr_raw_text",
+  "ocr_suggested_json"
  ],
  "fields": [
   {
@@ -167,8 +179,83 @@
   },
   {
    "fieldname": "badge_number",
+   "fieldtype": "Link",
+   "label": "Badge Number",
+   "options": "Visitors Registration Card",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_id_verification",
+   "fieldtype": "Section Break",
+   "label": "ID Verification"
+  },
+  {
+   "fieldname": "id_type",
+   "fieldtype": "Select",
+   "label": "ID Type",
+   "options": "National ID\nPassport\nDriving Licence\nVoter ID"
+  },
+  {
+   "fieldname": "id_number",
    "fieldtype": "Data",
-   "label": "Badge Number"
+   "label": "ID Number",
+   "search_index": 1
+  },
+  {
+   "fieldname": "column_break_id_verification",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "scanned_id_image",
+   "fieldtype": "Attach Image",
+   "label": "Scanned ID Image",
+   "read_only": 1,
+   "permlevel": 1
+  },
+  {
+   "fieldname": "ocr_confidence",
+   "fieldtype": "Percent",
+   "label": "OCR Confidence",
+   "read_only": 1
+  },
+  {
+   "fieldname": "ocr_verified",
+   "fieldtype": "Check",
+   "label": "OCR Verified",
+   "read_only": 1
+  },
+  {
+   "fieldname": "verified_by",
+   "fieldtype": "Link",
+   "label": "Verified By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "verified_on",
+   "fieldtype": "Datetime",
+   "label": "Verified On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_ocr_detail",
+   "fieldtype": "Section Break",
+   "label": "OCR Details",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "ocr_raw_text",
+   "fieldtype": "Long Text",
+   "label": "OCR Raw Text",
+   "read_only": 1,
+   "permlevel": 1
+  },
+  {
+   "fieldname": "ocr_suggested_json",
+   "fieldtype": "Long Text",
+   "label": "OCR Suggested Values (JSON)",
+   "read_only": 1,
+   "permlevel": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -193,8 +280,13 @@
    "write": 1
   },
   {
+   "permlevel": 1,
+   "read": 1,
+   "role": "System Manager",
+   "write": 1
+  },
+  {
    "create": 1,
-   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
@@ -202,6 +294,23 @@
    "report": 1,
    "role": "Employee",
    "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Visitor Verifier",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "permlevel": 1,
+   "read": 1,
+   "role": "Visitor Verifier",
    "write": 1
   }
  ],
