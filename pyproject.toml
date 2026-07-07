@@ -9,7 +9,15 @@ readme = "README.md"
 dynamic = ["version"]
 dependencies = [
     # "frappe~=15.0.0" # Installed and managed by bench.
+    "pytesseract~=0.3",
+    "opencv-python-headless~=4.9",
 ]
+
+# Optional, heavier accuracy upgrade for ID-card OCR. Not installed by default —
+# select "PaddleOCR (Local)" in Visitor Settings only after installing it:
+#   ./env/bin/pip install "visitor[paddleocr]"
+[project.optional-dependencies]
+paddleocr = ["paddleocr~=2.7"]
 
 [build-system]
 requires = ["flit_core >=3.4,<4"]
