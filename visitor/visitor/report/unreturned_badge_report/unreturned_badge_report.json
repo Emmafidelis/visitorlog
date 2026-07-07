@@ -1,0 +1,21 @@
+{
+ "add_total_row": 0,
+ "creation": "2026-07-07 00:00:00.000000",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "is_standard": "Yes",
+ "module": "Visitor",
+ "name": "Unreturned Badge Report",
+ "prepared_report": 0,
+ "query": "SELECT\n  c.name as \"Badge:Link/Visitors Registration Card:120\",\n  c.current_visitor as \"Visitor:Link/Visitor:120\",\n  v.full_name as \"Full Name::150\",\n  v.host_employee as \"Host Employee:Link/Employee:150\",\n  l.time_in as \"Checked In:Datetime:160\",\n  TIMESTAMPDIFF(HOUR, l.time_in, NOW()) as \"Hours On Site:Int:120\"\nFROM `tabVisitors Registration Card` c\nLEFT JOIN `tabVisitor` v ON v.name = c.current_visitor\nLEFT JOIN `tabVisitors Registration Log` l\n  ON l.qr_code = c.name AND l.log_type = 'IN' AND l.time_out IS NULL\nWHERE c.status = 'Assigned'\nORDER BY l.time_in ASC",
+ "ref_doctype": "Visitors Registration Card",
+ "report_name": "Unreturned Badge Report",
+ "report_type": "Query Report",
+ "roles": [
+  {"role": "System Manager"},
+  {"role": "Employee"},
+  {"role": "Visitor Verifier"}
+ ]
+}

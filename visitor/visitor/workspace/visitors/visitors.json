@@ -5,7 +5,7 @@
    "label": "Monthly Visitor Traffic"
   }
  ],
- "content": "[{\"id\":\"R4WkThugPr\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Active Visitors On-Premise\",\"col\":3}},{\"id\":\"QAtgMjlMnd\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Visits Today\",\"col\":3}},{\"id\":\"JdDoeTpXN0\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Unique Visitors This Month\",\"col\":3}},{\"id\":\"ZRWf3zzH5A\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Active Staff Hosts Today\",\"col\":3}},{\"id\":\"0TwN77a-Ps\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Monthly Visitor Traffic\",\"col\":12}},{\"id\":\"DuQXHVgqv1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"mB9AsidrtD\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Register Visitor\",\"col\":3}},{\"id\":\"bc7RhtEQhw\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Visitors Registration Card\",\"col\":3}},{\"id\":\"y-RDEd27kq\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"Xa7-XBLsJS\",\"type\":\"card\",\"data\":{\"card_name\":\"Masters\",\"col\":4}}]",
+ "content": "[{\"id\":\"R4WkThugPr\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Active Visitors On-Premise\",\"col\":3}},{\"id\":\"QAtgMjlMnd\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Visits Today\",\"col\":3}},{\"id\":\"JdDoeTpXN0\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Unique Visitors This Month\",\"col\":3}},{\"id\":\"ZRWf3zzH5A\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Active Staff Hosts Today\",\"col\":3}},{\"id\":\"0TwN77a-Ps\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Monthly Visitor Traffic\",\"col\":12}},{\"id\":\"DuQXHVgqv1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"mB9AsidrtD\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Register Visitor\",\"col\":3}},{\"id\":\"bc7RhtEQhw\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Visitors Registration Card\",\"col\":3}},{\"id\":\"y-RDEd27kq\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"Xa7-XBLsJS\",\"type\":\"card\",\"data\":{\"card_name\":\"Masters\",\"col\":4}},{\"id\":\"Xa7-XBLsJT\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":4}}]",
  "creation": "2026-06-24 13:14:04.047431",
  "custom_blocks": [],
  "docstatus": 0,
@@ -44,6 +44,75 @@
    "link_count": 0,
    "link_to": "Visitors Registration Card",
    "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Reports",
+   "link_count": 6,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Current Visitors In Premises",
+   "link_count": 0,
+   "link_to": "Current Visitors In Premises",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Daily Visitor Log",
+   "link_count": 0,
+   "link_to": "Daily Visitor Log",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Unreturned Badge Report",
+   "link_count": 0,
+   "link_to": "Unreturned Badge Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Visitor by Host Employee",
+   "link_count": 0,
+   "link_to": "Visitor by Host Employee",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "OCR Exception Report",
+   "link_count": 0,
+   "link_to": "OCR Exception Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Visitor Audit Trail",
+   "link_count": 0,
+   "link_to": "Visitor Audit Trail",
+   "link_type": "Report",
    "onboard": 0,
    "type": "Link"
   }

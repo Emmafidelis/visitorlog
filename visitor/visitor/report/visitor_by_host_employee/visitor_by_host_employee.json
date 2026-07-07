@@ -1,0 +1,24 @@
+{
+ "add_total_row": 0,
+ "creation": "2026-07-07 00:00:00.000000",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [
+  {"fieldname": "host_employee", "fieldtype": "Link", "label": "Host Employee", "options": "Employee"},
+  {"fieldname": "from_date", "fieldtype": "Date", "label": "From Date"},
+  {"fieldname": "to_date", "fieldtype": "Date", "label": "To Date"}
+ ],
+ "is_standard": "Yes",
+ "module": "Visitor",
+ "name": "Visitor by Host Employee",
+ "prepared_report": 0,
+ "ref_doctype": "Visitor",
+ "report_name": "Visitor by Host Employee",
+ "report_type": "Script Report",
+ "roles": [
+  {"role": "System Manager"},
+  {"role": "Employee"},
+  {"role": "Visitor Verifier"}
+ ]
+}
