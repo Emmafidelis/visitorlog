@@ -15,6 +15,27 @@ class TestIdParsers(unittest.TestCase):
 		self.assertEqual(fields["first_name"], "John")
 		self.assertEqual(fields["last_name"], "Mwangi")
 
+	def test_splits_three_part_name_into_first_middle_last(self):
+		raw_text = "UNITED REPUBLIC OF TANZANIA\nNATIONAL IDENTIFICATION CARD\n\nID NUMBER: 19900101-12345-00001-23\n\nNAME: JOHN PETER MWAKASEGE"
+		fields = parse_id_fields(raw_text, "National ID")
+
+		self.assertEqual(fields["first_name"], "John")
+		self.assertEqual(fields["middle_name"], "Peter")
+		self.assertEqual(fields["last_name"], "Mwakasege")
+
+	def test_does_not_mistake_other_labeled_fields_for_the_name(self):
+		raw_text = (
+			"UNITED REPUBLIC OF TANZANIA\nNATIONAL IDENTIFICATION CARD\n\n"
+			"ID NUMBER: 19900101-12345-00001-23\n\n"
+			"PLACE OF BIRTH: DAR ES SALAAM\n\n"
+			"NAME: JOHN PETER MWAKASEGE"
+		)
+		fields = parse_id_fields(raw_text, "National ID")
+
+		self.assertEqual(fields["first_name"], "John")
+		self.assertEqual(fields["middle_name"], "Peter")
+		self.assertEqual(fields["last_name"], "Mwakasege")
+
 	def test_never_invents_fields_it_cannot_find(self):
 		fields = parse_id_fields("garbled unreadable text 4#!@", "National ID")
 		self.assertNotIn("id_number", fields)

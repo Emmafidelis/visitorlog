@@ -21,6 +21,11 @@ _BOILERPLATE_WORDS = {
 	"tanzania", "kenya", "uganda", "rwanda", "burundi",
 }
 
+# A label:value line is only treated as the name if the label itself says so —
+# otherwise any other label with a title-cased value ("PLACE OF BIRTH: DAR ES
+# SALAAM", "SEX: MALE") would be mistaken for a name line.
+_NAME_LABEL_WORDS = {"name", "jina"}  # "jina" is Swahili for "name"
+
 
 def parse_id_fields(raw_text: str, id_type: str | None = None) -> dict:
 	"""Best-effort extraction of id_number/first_name/last_name from OCR text.
@@ -41,13 +46,24 @@ def parse_id_fields(raw_text: str, id_type: str | None = None) -> dict:
 			break
 
 	for line in lines:
-		if not _NAME_LINE.match(line):
+		candidate = line
+		if ":" in line:
+			# ID cards commonly print the name after a label ("NAME: JOHN DOE").
+			# Only treat the text after the colon as a name if the label says so —
+			# otherwise a different label ("SEX: MALE") could be mistaken for one.
+			label, _, value = line.partition(":")
+			if not (_NAME_LABEL_WORDS & {word.lower() for word in label.split()}):
+				continue
+			candidate = value.strip()
+		if not _NAME_LINE.match(candidate):
 			continue
-		if any(word.lower() in _BOILERPLATE_WORDS for word in line.split()):
+		if any(word.lower() in _BOILERPLATE_WORDS for word in candidate.split()):
 			continue
-		parts = line.split()
+		parts = candidate.split()
 		fields["first_name"] = parts[0].title()
-		fields["last_name"] = " ".join(parts[1:]).title()
+		if len(parts) > 2:
+			fields["middle_name"] = " ".join(parts[1:-1]).title()
+		fields["last_name"] = parts[-1].title()
 		break
 
 	return fields
