@@ -24,6 +24,7 @@ function scan_id(frm) {
 		allow_multiple: false,
 		allow_toggle_private: false, // ID scans must stay private; don't let the user override it
 		make_attachments_public: false,
+		allow_take_photo: true, // lets reception snap the ID with the device's own camera, not just pick a file
 		restrictions: { allowed_file_types: ["image/*"] },
 		on_success(file_doc) {
 			frm.set_value("scanned_id_image", file_doc.file_url);
@@ -53,6 +54,7 @@ function apply_ocr_result(frm, result) {
 	const fields = result.fields || {};
 	if (fields.id_number && !frm.doc.id_number) frm.set_value("id_number", fields.id_number);
 	if (fields.first_name && !frm.doc.first_name) frm.set_value("first_name", fields.first_name);
+	if (fields.middle_name && !frm.doc.middle_name) frm.set_value("middle_name", fields.middle_name);
 	if (fields.last_name && !frm.doc.last_name) frm.set_value("last_name", fields.last_name);
 
 	frappe.show_alert(

@@ -2,6 +2,7 @@
 # For license information, please see license.txt
 
 import frappe
+from frappe.contacts.doctype.contact.contact import get_full_name
 from frappe.model.document import Document
 
 
@@ -9,7 +10,7 @@ class Visitor(Document):
 	def before_save(self):
 		"""Set full name from first and last name"""
 		if self.first_name and self.last_name:
-			self.full_name = f"{self.first_name} {self.last_name}"
+			self.full_name = get_full_name(self.first_name, self.middle_name, self.last_name)
 		
 		# Set check-in time when status changes to Checked In. Also refresh on
 		# every fresh transition into this status (not just when blank) so a
