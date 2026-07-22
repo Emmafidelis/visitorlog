@@ -19,6 +19,12 @@ dependencies = [
 [project.optional-dependencies]
 paddleocr = ["paddleocr~=2.7"]
 
+# Frappe Cloud reads this on every deploy and installs the listed apt packages
+# automatically. Self-hosted/manual benches must still install this themselves
+# (e.g. `apt-get install tesseract-ocr`) — this section has no effect there.
+[deploy.dependencies.apt]
+packages = ["tesseract-ocr"]
+
 [build-system]
 requires = ["flit_core >=3.4,<4"]
 build-backend = "flit_core.buildapi"

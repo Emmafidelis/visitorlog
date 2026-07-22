@@ -180,6 +180,8 @@ Install the OCR system dependency (default Tesseract backend):
 sudo apt-get install -y tesseract-ocr
 ```
 
+**On Frappe Cloud**, you don't get shell/`apt-get` access — instead, `pyproject.toml` declares this under `[deploy.dependencies.apt]`, and Frappe Cloud installs it automatically on every deploy of this app. If you're seeing `pytesseract.pytesseract.TesseractNotFoundError` on a Frappe Cloud site, trigger a fresh deploy of a bench/release that includes this `pyproject.toml` (App → your bench → **New Release** / redeploy); manually installing packages via SSH on Frappe Cloud does not persist across deploys, only this file does.
+
 To use PaddleOCR instead (higher accuracy, heavier install — only do this on a server with spare RAM/CPU):
 
 ```bash
